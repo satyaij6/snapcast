@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SnapCast — Record. Zoom. Share.</title>
+    <meta
+      name="description"
+      content="SnapCast is an AI-powered Chrome extension for screen recording with auto zoom and captions."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a class="brand" href="#top" aria-label="SnapCast home">
+          <span class="brand__mark" aria-hidden="true">SC</span>
+          <span class="brand__name">SnapCast</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__link" href="#features">Features</a>
+          <a class="nav__link" href="#pricing">Pricing</a>
+          <a class="nav__link" href="#footer">Contact</a>
+        </nav>
+
+        <div class="header__cta">
+          <a class="btn btn--ghost" href="#pricing">View Pricing</a>
+          <button class="btn btn--primary" id="ctaTop" type="button">
+            Start Recording Free
+          </button>
+        </div>
+
+        <button class="menuBtn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+          <span class="menuBtn__bar"></span>
+          <span class="menuBtn__bar"></span>
+          <span class="menuBtn__bar"></span>
+        </button>
+      </div>
+
+      <div class="mobileNav" id="mobileNav" hidden>
+        <div class="container mobileNav__inner" role="navigation" aria-label="Mobile">
+          <a class="mobileNav__link" href="#features">Features</a>
+          <a class="mobileNav__link" href="#pricing">Pricing</a>
+          <a class="mobileNav__link" href="#footer">Contact</a>
+          <button class="btn btn--primary mobileNav__cta" id="ctaMobile" type="button">
+            Start Recording Free
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero__bg" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="pill">
+              <span class="pill__dot" aria-hidden="true"></span>
+              Chrome Extension • AI Powered
+            </p>
+            <h1 class="hero__title">
+              Record. <span class="hero__titleAccent">Zoom.</span> Share.
+            </h1>
+            <p class="hero__subtitle">AI-powered screen recording with auto zoom and captions</p>
+
+            <div class="hero__actions">
+              <button class="btn btn--primary btn--lg" id="ctaHero" type="button">
+                Start Recording Free
+              </button>
+              <a class="btn btn--soft btn--lg" href="#features">See features</a>
+            </div>
+
+            <div class="hero__trust">
+              <div class="hero__trustItem">
+                <span class="hero__trustNum">1-click</span>
+                <span class="hero__trustLabel">export formats</span>
+              </div>
+              <div class="hero__trustItem">
+                <span class="hero__trustNum">Auto</span>
+                <span class="hero__trustLabel">zoom on click</span>
+              </div>
+              <div class="hero__trustItem">
+                <span class="hero__trustNum">AI</span>
+                <span class="hero__trustLabel">captions</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__preview" aria-label="Product preview">
+            <div class="previewCard">
+              <div class="previewCard__top">
+                <div class="dots" aria-hidden="true">
+                  <span class="dot dot--red"></span>
+                  <span class="dot dot--yellow"></span>
+                  <span class="dot dot--green"></span>
+                </div>
+                <div class="previewCard__url" aria-hidden="true">snapcast.app/recording</div>
+              </div>
+
+              <div class="previewCard__screen" aria-hidden="true">
+                <div class="grid"></div>
+                <div class="cursor"></div>
+                <div class="focusRing"></div>
+                <div class="caption">
+                  <span class="caption__tag">AI Captions</span>
+                  <span class="caption__text">“Click Export — done.”</span>
+                </div>
+                <div class="exportChips">
+                  <span class="chip">GIF</span>
+                  <span class="chip">Vertical</span>
+                  <span class="chip">Square</span>
+                </div>
+              </div>
+
+              <div class="previewCard__bottom">
+                <div class="status">
+                  <span class="status__dot" aria-hidden="true"></span>
+                  Recording
+                </div>
+                <button class="miniBtn" type="button" aria-hidden="true">Export</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Features built for fast sharing</h2>
+            <p class="section__subtitle">Turn any screen capture into a clean, focused story—automatically.</p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="card__icon" aria-hidden="true">
+                <span>🔍</span>
+              </div>
+              <h3 class="card__title">Auto Zoom on Click</h3>
+              <p class="card__text">
+                SnapCast tracks your clicks and smoothly zooms the viewer’s focus—so people don’t miss the point.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card__icon" aria-hidden="true">
+                <span>💬</span>
+              </div>
+              <h3 class="card__title">AI Captions</h3>
+              <p class="card__text">
+                Add clear captions automatically for accessibility and clarity—perfect for async updates and tutorials.
+              </p>
+            </article>
+
+            <article class="card">
+              <div class="card__icon" aria-hidden="true">
+                <span>⚡️</span>
+              </div>
+              <h3 class="card__title">One-click Export</h3>
+              <p class="card__text">
+                Export to <strong>GIF</strong>, <strong>Vertical</strong>, or <strong>Square</strong> with a single click for any platform.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="pricing">
+        <div class="container">
+          <div class="section__head">
+            <h2 class="section__title">Simple pricing</h2>
+            <p class="section__subtitle">Start free. Upgrade once. Keep it forever.</p>
+          </div>
+
+          <div class="pricing">
+            <article class="priceCard">
+              <div class="priceCard__head">
+                <h3 class="priceCard__title">Free</h3>
+                <p class="priceCard__price">
+                  <span class="priceCard__amount">$0</span>
+                  <span class="priceCard__period">forever</span>
+                </p>
+              </div>
+              <ul class="list">
+                <li class="list__item">Basic recording</li>
+                <li class="list__item">Standard export</li>
+                <li class="list__item">Community support</li>
+              </ul>
+              <button class="btn btn--soft btn--full" id="ctaFree" type="button">Start Recording Free</button>
+            </article>
+
+            <article class="priceCard priceCard--featured">
+              <div class="badge">Best value</div>
+              <div class="priceCard__head">
+                <h3 class="priceCard__title">Lifetime</h3>
+                <p class="priceCard__price">
+                  <span class="priceCard__amount">$49</span>
+                  <span class="priceCard__period">one-time</span>
+                </p>
+              </div>
+              <ul class="list">
+                <li class="list__item">Auto Zoom on Click</li>
+                <li class="list__item">AI captions</li>
+                <li class="list__item">One-click export (GIF / Vertical / Square)</li>
+                <li class="list__item">Priority support</li>
+              </ul>
+              <button class="btn btn--primary btn--full" id="ctaLifetime" type="button">Get Lifetime</button>
+              <p class="fineprint">Pay once, keep all premium features.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="footer">
+      <div class="container footer__inner">
+        <div class="footer__left">
+          <a class="brand brand--footer" href="#top" aria-label="SnapCast home">
+            <span class="brand__mark" aria-hidden="true">SC</span>
+            <span class="brand__name">SnapCast</span>
+          </a>
+          <p class="footer__text">
+            SnapCast is a Chrome extension for AI-powered screen recording with auto zoom and captions.
+          </p>
+        </div>
+
+        <div class="footer__right">
+          <a class="footer__link" href="#features">Features</a>
+          <a class="footer__link" href="#pricing">Pricing</a>
+          <a class="footer__link" href="#top">Back to top</a>
+        </div>
+      </div>
+
+      <div class="container footer__bottom">
+        <span>© <span id="year"></span> SnapCast</span>
+        <span class="footer__sep" aria-hidden="true">•</span>
+        <span>Made for quick sharing</span>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+      <div class="toast__inner">
+        <div class="toast__title" id="toastTitle">Opening SnapCast…</div>
+        <div class="toast__msg" id="toastMsg">Replace the link in <code>script.js</code> with your Chrome Web Store URL.</div>
+      </div>
+      <button class="toast__close" id="toastClose" type="button" aria-label="Close">✕</button>
+    </div>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

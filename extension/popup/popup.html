@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>SnapCast Popup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup">
+      <div class="card">
+        <header class="popup__header">
+          <h1 class="popup__title">SnapCast 🎬</h1>
+          <p class="popup__subtitle">Quick screen capture, right from your browser.</p>
+        </header>
+
+        <main class="popup__main">
+          <button class="btn btn--primary" id="startBtn" type="button">
+            Start Recording
+          </button>
+          <button class="btn btn--dark" id="stopBtn" type="button">
+            Stop Recording
+          </button>
+          <p class="popup__status popup__status--idle" id="statusText">Status: Idle</p>
+        </main>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

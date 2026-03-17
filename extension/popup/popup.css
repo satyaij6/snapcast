@@ -1,0 +1,127 @@
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+}
+
+html,
+body{
+  margin:0;
+  padding:0;
+}
+
+body{
+  width:320px;
+  min-height:240px;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#050716;
+  color:#EAF0FF;
+}
+
+.popup{
+  min-height:240px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+
+.card{
+  width:100%;
+  border-radius:12px;
+  padding:16px 14px 14px;
+  border:1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(360px 260px at 10% 0%, rgba(124,58,237,.30), transparent 62%),
+    radial-gradient(320px 240px at 90% 0%, rgba(59,130,246,.26), transparent 62%),
+    radial-gradient(340px 280px at 50% 120%, rgba(34,211,238,.18), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow:
+    0 18px 46px rgba(0,0,0,.55),
+    0 1px 0 rgba(255,255,255,.06) inset;
+}
+
+.popup__header{
+  text-align:center;
+}
+
+.popup__title{
+  margin:0 0 6px;
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:-.03em;
+}
+
+.popup__subtitle{
+  margin:0;
+  font-size:12px;
+  color:#B8C3E6;
+}
+
+.popup__main{
+  width:100%;
+  margin-top:6px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.btn{
+  width:100%;
+  padding:11px 12px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.14);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:-.01em;
+  cursor:pointer;
+  background:rgba(255,255,255,.04);
+  color:#EAF0FF;
+  box-shadow:0 10px 24px rgba(0,0,0,.35);
+  transition:transform .3s ease, box-shadow .3s ease, background .3s ease, border-color .3s ease, filter .3s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px) scale(1.01);
+  box-shadow:0 14px 32px rgba(0,0,0,.40);
+  border-color:rgba(255,255,255,.20);
+}
+
+.btn:active{
+  transform:translateY(0) scale(1);
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+}
+
+.btn--primary{
+  border:none;
+  background:linear-gradient(135deg,#8B5CF6 0%, #3B82F6 40%, #10B981 100%);
+}
+
+.btn--primary:hover{
+  filter:saturate(1.05) brightness(1.03);
+}
+
+.btn--dark{
+  background:rgba(0,0,0,.28);
+  border-color:rgba(255,255,255,.12);
+}
+.btn--dark:hover{
+  background:rgba(0,0,0,.34);
+  border-color:rgba(255,255,255,.18);
+}
+
+.popup__status{
+  margin:6px 0 0;
+  font-size:11.5px;
+  color:rgba(220,226,244,.78);
+}
+
+.popup__status--idle{
+  color:rgba(148,163,184,.9);
+}
+
+.popup__status--recording{
+  color:#F97373;
+}
+

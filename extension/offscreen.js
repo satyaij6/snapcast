@@ -54,9 +54,13 @@ async function handleExport(message) {
       throw new Error(`Unsupported export format: ${format}`);
     }
 
+    // Slice to exact bytes (Uint8Array.buffer can be larger than the view)
+    const outBytes = out instanceof Uint8Array ? out : new Uint8Array(out);
+    const sliced = outBytes.buffer.slice(outBytes.byteOffset, outBytes.byteOffset + outBytes.byteLength);
+
     return {
       ok: true,
-      output: out.buffer,
+      output: sliced,
       mime: outMime,
       ext: outExt
     };

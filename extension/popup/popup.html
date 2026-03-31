@@ -11,10 +11,11 @@
       <div class="card">
         <header class="popup__header">
           <h1 class="popup__title">SnapCast 🎬</h1>
-          <p class="popup__subtitle">Quick screen capture, right from your browser.</p>
+          <p class="popup__subtitle">AI captions + auto-zoom + export presets</p>
         </header>
 
         <main class="popup__main">
+          <!-- STATUS -->
           <button class="btn btn--primary" id="startBtn" type="button">
             Start Recording
           </button>
@@ -22,6 +23,80 @@
             Stop Recording
           </button>
           <p class="popup__status popup__status--idle" id="statusText">Status: Idle</p>
+
+          <!-- BACKGROUND PRESETS -->
+          <section class="popup__section" aria-label="Background presets">
+            <div class="popup__sectionHeader">
+              <span class="popup__sectionTitle">Background preset</span>
+              <span class="popup__sectionHint">For theme overlay</span>
+            </div>
+            <div class="chips" id="bgPresets">
+              <button class="chip chip--selectable chip--selected" type="button" data-bg="none">
+                Default
+              </button>
+              <button class="chip chip--selectable" type="button" data-bg="blur">
+                Blur
+              </button>
+              <button class="chip chip--selectable" type="button" data-bg="desk">
+                Desk
+              </button>
+              <button class="chip chip--selectable" type="button" data-bg="gradient">
+                Gradient
+              </button>
+            </div>
+          </section>
+
+          <!-- CURSOR EFFECTS -->
+          <section class="popup__section" aria-label="Cursor effects">
+            <div class="popup__sectionHeader">
+              <span class="popup__sectionTitle">Cursor effect</span>
+              <span class="popup__sectionHint">Highlight clicks</span>
+            </div>
+            <div class="chips" id="cursorEffects">
+              <button class="chip chip--selectable chip--selected" type="button" data-cursor="none">
+                None
+              </button>
+              <button class="chip chip--selectable" type="button" data-cursor="halo">
+                Halo
+              </button>
+              <button class="chip chip--selectable" type="button" data-cursor="ring">
+                Ring
+              </button>
+              <button class="chip chip--selectable" type="button" data-cursor="pulse">
+                Pulse
+              </button>
+            </div>
+          </section>
+
+          <!-- EXPORT -->
+          <section class="popup__section popup__section--export" aria-label="Export formats">
+            <div class="popup__sectionHeader">
+              <span class="popup__sectionTitle">Export as</span>
+              <span class="popup__sectionHint">GIF / Vertical / Square</span>
+            </div>
+
+            <div class="exportButtons">
+              <button class="btn btn--pill btn--export" type="button" id="exportGif" data-export="gif">
+                GIF
+              </button>
+              <button
+                class="btn btn--pill btn--export"
+                type="button"
+                id="exportVertical"
+                data-export="vertical"
+              >
+                Vertical
+              </button>
+              <button
+                class="btn btn--pill btn--export"
+                type="button"
+                id="exportSquare"
+                data-export="square"
+              >
+                Square
+              </button>
+            </div>
+          </section>
         </main>
       </div>
     </div>

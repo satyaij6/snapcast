@@ -2,6 +2,7 @@
 // Receives messages from popup.js and delegates to recorder.js.
 
 import { startRecording, stopRecording } from "./recorder.js";
+import { getIsPremium, STRIPE_LIFETIME_CHECKOUT_URL } from "./stripe.js";
 
 let lastRecording = null; // { tabId, buffer, meta }
 
@@ -46,6 +47,23 @@ async function handleStart(message) {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (!tab || typeof tab.id !== "number") return;
 
+  // Push visual configuration into the active tab before recording starts.
+  // This way the click cursor effects and auto-zoom are visible in the capture.
+  try {
+    chrome.tabs.sendMessage(tab.id, {
+      type: "SNAPCAST_SET_CURSOR_EFFECT",
+      effect: message.cursorEffect || "none"
+    });
+    chrome.tabs.sendMessage(tab.id, {
+      type: "SNAPCAST_SET_AUTO_ZOOM",
+      enabled: message.autoZoom !== false,
+      scale: typeof message.zoomScale === "number" ? message.zoomScale : 1.35,
+      durationMs: typeof message.zoomDurationMs === "number" ? message.zoomDurationMs : 750
+    });
+  } catch (_) {
+    // If the tab doesn't allow content scripts, we still allow recording itself.
+  }
+
   await startRecording(tab.id, {
     bgPreset: message.bgPreset,
     cursorEffect: message.cursorEffect,
@@ -84,6 +102,30 @@ function handleRecordingComplete(message) {
 }
 
 async function handleExport(message) {
+  const format = message.format;
+
+  // Premium gating (scaffold):
+  // For now we require premium for GIF + vertical + square exports.
+  // MP4 export could be free if you later add a plain-download path.
+  const requiresPremium = format === "gif" || format === "vertical" || format === "square";
+  if (requiresPremium) {
+    const premium = await getIsPremium();
+    if (!premium) {
+      chrome.runtime.sendMessage({
+        type: "SNAPCAST_STRIPE_REQUIRED",
+        checkoutUrl: STRIPE_LIFETIME_CHECKOUT_URL,
+        format
+      });
+
+      chrome.runtime.sendMessage({
+        type: "SNAPCAST_EXPORT_RESULT",
+        ok: false,
+        error: "Premium required for this export format."
+      });
+      return;
+    }
+  }
+
   if (!lastRecording || !lastRecording.buffer) {
     chrome.runtime.sendMessage({
       type: "SNAPCAST_EXPORT_RESULT",
@@ -97,7 +139,7 @@ async function handleExport(message) {
 
   const response = await chrome.runtime.sendMessage({
     type: "SNAPCAST_PROCESS_EXPORT",
-    format: message.format,
+    format,
     input: lastRecording.buffer
   });
 

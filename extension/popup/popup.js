@@ -27,11 +27,37 @@ document.addEventListener("DOMContentLoaded", () => {
     statusEl.classList.add("popup__status--recording");
   }
 
+  function setExporting() {
+    statusEl.textContent = "Status: Exporting…";
+    statusEl.classList.remove("popup__status--recording");
+    statusEl.classList.add("popup__status--idle");
+  }
+
   function selectChip(container, chip) {
     if (!container || !chip) return;
     const chips = container.querySelectorAll(".chip--selectable");
     chips.forEach((c) => c.classList.remove("chip--selected"));
     chip.classList.add("chip--selected");
+  }
+
+  function downloadBytes(arrayBuffer, mime, ext) {
+    const url = URL.createObjectURL(new Blob([arrayBuffer], { type: mime || "application/octet-stream" }));
+    const stamp = new Date().toISOString().replace(/[:.]/g, "-");
+    const filename = `SnapCast-${stamp}.${ext || "bin"}`;
+
+    // MV3 requires the `downloads` permission to use chrome.downloads.
+    // If not available, you can fallback to window.open in dev builds.
+    if (chrome.downloads && chrome.downloads.download) {
+      chrome.downloads.download({
+        url,
+        filename,
+        saveAs: true
+      });
+    } else {
+      window.open(url, "_blank");
+    }
+
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
   }
 
   // BACKGROUND PRESETS
@@ -104,6 +130,43 @@ document.addEventListener("DOMContentLoaded", () => {
   if (exportSquareBtn) {
     exportSquareBtn.addEventListener("click", () => requestExport("square"));
   }
+
+  // Receive export results from background/offscreen.
+  chrome.runtime.onMessage.addListener((message) => {
+    if (!message || message.type !== "SNAPCAST_EXPORT_RESULT") return;
+
+    if (!message.ok) {
+      statusEl.textContent = `Status: Export failed`;
+      statusEl.classList.remove("popup__status--recording");
+      statusEl.classList.add("popup__status--idle");
+      console.error("[SnapCast] Export failed:", message.error);
+      return;
+    }
+
+    setExporting();
+    try {
+      if (message.output) {
+        downloadBytes(message.output, message.mime, message.ext);
+        statusEl.textContent = "Status: Export ready";
+      } else {
+        statusEl.textContent = "Status: Export missing output";
+      }
+    } catch (err) {
+      statusEl.textContent = "Status: Export error";
+      console.error("[SnapCast] Export handling error:", err);
+    }
+  });
+
+  // Receive Stripe gating requests.
+  chrome.runtime.onMessage.addListener((message) => {
+    if (!message || message.type !== "SNAPCAST_STRIPE_REQUIRED") return;
+
+    statusEl.textContent = "Status: Premium required (opening checkout…)";
+
+    if (message.checkoutUrl) {
+      window.open(message.checkoutUrl, "_blank", "noopener,noreferrer");
+    }
+  });
 
   setIdle();
 });

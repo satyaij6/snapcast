@@ -21,6 +21,7 @@
     "tabCapture",
     "storage",
     "offscreen",
+    "downloads",
     "scripting",
     "activeTab"
   ],

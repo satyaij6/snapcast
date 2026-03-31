@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "SnapCast — Screen Recorder with AI Captions",
+  "description": "Screen recorder with auto zoom, cursor effects, AI captions via Whisper.js, and export presets (GIF, vertical, square).",
+  "version": "0.1.0",
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "SnapCast"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "permissions": [
+    "tabCapture",
+    "storage",
+    "offscreen",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "recorder.js",
+        "libs/*",
+        "libs/**/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
+
